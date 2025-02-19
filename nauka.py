@@ -641,12 +641,15 @@ def save_to_csv(plik_csv, lista_wydatkow):
 # Main script
 # lista_wydatkow = wczytaj_wydatki()
 lista_wydatkow = wczytaj_plik_wydatkow()
-kategorie = lista_kategorii(lista_wydatkow)
-suma = suma_wydatkow(lista_wydatkow)
-srednia = srednia_wydatkow(lista_wydatkow)
-max_wyd = max_wydatek(lista_wydatkow)
-max_k_w = max_wydatek_kat(lista_wydatkow)
-najdrozsza_kat = najdrozsza_kategoria(kategorie)
+if len(lista_wydatkow) == 0:
+    print("Nie wczytano żadnych wydatków - plik jest pusty lub go nie ma.")
+else:
+    kategorie = lista_kategorii(lista_wydatkow)
+    suma = suma_wydatkow(lista_wydatkow)
+    srednia = srednia_wydatkow(lista_wydatkow)
+    max_wyd = max_wydatek(lista_wydatkow)
+    max_k_w = max_wydatek_kat(lista_wydatkow)
+    najdrozsza_kat = najdrozsza_kategoria(kategorie)
 
 print(f"Suma wszystkich wydatków: {suma:.2f}")
 print(f"Srednia wydatków to: {srednia:.2f}.")
