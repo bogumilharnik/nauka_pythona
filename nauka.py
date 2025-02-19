@@ -643,6 +643,7 @@ def save_to_csv(plik_csv, lista_wydatkow):
 lista_wydatkow = wczytaj_plik_wydatkow()
 if len(lista_wydatkow) == 0:
     print("Nie wczytano żadnych wydatków - plik jest pusty lub go nie ma.")
+    exit()
 else:
     kategorie = lista_kategorii(lista_wydatkow)
     suma = suma_wydatkow(lista_wydatkow)
@@ -666,9 +667,6 @@ print(f"Najdroższa kategoria sumarycznie: {najdrozsza_kat[0]} ({najdrozsza_kat[
 
 plik_txt = input("Podaj pełną ścieżkę do pliku TXT (z rozszerzeniem .txt): ")
 plik_csv = input("Podaj pełną ścieżkę do pliku CSV (z rozszerzeniem .csv): ")
-
-if not utworz_folder(plik_txt):
-    return
 
 save_to_txt(plik_txt, suma, srednia, max_k_w, kategorie, najdrozsza_kat)
 save_to_csv(plik_csv, lista_wydatkow)
