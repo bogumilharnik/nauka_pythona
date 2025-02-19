@@ -580,7 +580,26 @@ def utworz_folder(sciezka):
             print(f"Błąd tworzenia ścieżki '{directory}': {error}")
             return False
         return True
+    
+def wczytaj_plik_wydatkow():
+    path_file = input("Podaj ścieżkę do pliku CSV z wydatkami: ")
+    wydatki = []
+    try:
+        with open(path_file, 'r', newline='', encoding='utf-8') as plik_csv:
+            reader = csv.reader(plik_csv)
+            next(reader)
+            for row in reader:
+                kwota = float(row[0])
+                kategoria = row[1]
+                wydatki.append(kwota, kategoria)
+    except FileNotFoundError as error:
+        print(f"Błąd odczytu pliku: {error}")
+    except ValueError as error:
+        print(f"Błąd danych w pliku: {error}")
+    return wydatki
 
+            
+    
 def save_to_txt(plik_txt, suma, srednia, max_k_w, kategorie, najdrozsza_kat):
     if not utworz_folder(plik_txt):
         return
@@ -620,7 +639,8 @@ def save_to_csv(plik_csv, lista_wydatkow):
 
 
 # Main script
-lista_wydatkow = wczytaj_wydatki()
+# lista_wydatkow = wczytaj_wydatki()
+lista_wydatkow = wczytaj_plik_wydatkow()
 kategorie = lista_kategorii(lista_wydatkow)
 suma = suma_wydatkow(lista_wydatkow)
 srednia = srednia_wydatkow(lista_wydatkow)
