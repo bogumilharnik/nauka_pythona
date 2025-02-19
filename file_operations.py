@@ -40,8 +40,63 @@ def wczytaj_plik_wydatkow():
         print(f"Błąd odczytu pliku: {error}")
     except ValueError as error:
         print(f"Błąd danych w pliku: {error}")
+    except csv.Error as error:
+        print(f"Błąd formatu pliku CSV")
     return wydatki
 
+def dodaj_wydatki(lista_wydatkow):
+    try:
+        kwota = float(input("Podaj kwotę wydatku: "))
+        kategoria = input("Podaj kategorię wydatku: ")
+        lista_wydatkow.append((kwota, kategoria))
+        print(f"Dodano nowy wydatek: {kwota} zł - {kategoria}.")
+    except ValueError as error:
+        print(f"Błąd danych - niewłaściwa kwota lub kategoria: {error}")
+        
+def edytuj_wydatek(lista_wydatkow):
+    if len(lista_wydatkow) == 0:
+        print("Lista wydatków jest pusta.")
+        return
+
+    for i, (kwota, kategoria) in enumerate(lista_wydatkow):
+        print(f"{i + 1}. {kwota:.2f} zł - {kategoria}")
+
+    try:
+        numer = int(input("Podaj numer wydatku do edycji: ")) - 1
+
+        if numer < 0 or numer >= len(lista_wydatkow):
+            print("Błąd: Nie ma takiego numeru.")
+            return
+
+        nowa_kwota = float(input("Podaj nową kwotę: "))
+        nowa_kategoria = input("Podaj nową kategorię: ")
+
+        lista_wydatkow[numer] = (nowa_kwota, nowa_kategoria)
+        print("Wydatek został zaktualizowany.")
+
+    except ValueError:
+        print("Błąd: Nieprawidłowy numer lub kwota.")
+        
+def usun_wydatek(lista_wydatkow):
+    if len(lista_wydatkow) == 0:
+        print("Lista wydatków jest pusta.")
+        return
+
+    for i, (kwota, kategoria) in enumerate(lista_wydatkow):
+        print(f"{i + 1}. {kwota:.2f} zł - {kategoria}")
+
+    try:
+        numer = int(input("Podaj numer wydatku do usunięcia: ")) - 1
+
+        if numer < 0 or numer >= len(lista_wydatkow):
+            print("Błąd: Nie ma takiego numeru.")
+            return
+
+        usuniety = lista_wydatkow.pop(numer)
+        print(f"Usunięto wydatek: {usuniety[0]:.2f} zł - {usuniety[1]}")
+
+    except ValueError:
+        print("Błąd: Nieprawidłowy numer.")
             
     
 def save_to_txt(plik_txt, suma, srednia, max_k_w, kategorie, najdrozsza_kat):

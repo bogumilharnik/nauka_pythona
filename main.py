@@ -527,10 +527,107 @@
 #         Największy wydatek + kategoria.
 #         Wydatki pogrupowane według kategorii.
 
+from file_operations import *
+from calculate import *
+
 
 # Main script
 # lista_wydatkow = wczytaj_wydatki()
+
 lista_wydatkow = wczytaj_plik_wydatkow()
+
+
+while True:  
+    print("1. Wczytaj wydatki z pliku")
+    print("2. Dodaj wydatek")
+    print("3. Edytuj wydatek")
+    print("4. Usuń wydatek")
+    print("5. Pokaż raport")
+    print("6. Zapisz raport do TXT")
+    print("7. Zapisz wydatki do CSV")
+    print("0. Wyjście")
+
+    wybor = input("Wybierz opcję: ")
+    
+    if wybor == '1':
+        # wywołaj funkcję do wczytania pliku
+        lista_wydatkow = wczytaj_plik_wydatkow()
+        
+    elif wybor == '2':
+        # wywołaj funkcję do dodawania wydatku
+        dodaj_wydatki(lista_wydatkow)
+    
+    elif wybor == '3':
+        # wywołaj funkcję do edycji wydatku
+        edytuj_wydatek(lista_wydatkow)
+    
+    elif wybor == '4':
+        # wywołaj funkcję do usunięcia wydatku
+        usun_wydatek(lista_wydatkow)
+    
+    elif wybor == '5':
+        # pokaż raport (oblicz sumę, średnią, max)
+        suma = suma_wydatkow(lista_wydatkow)
+        srednia = srednia_wydatkow(lista_wydatkow)
+        max_wyd = max_wydatek(lista_wydatkow)
+        kategorie = lista_kategorii(lista_wydatkow)
+        najdrozsza_kat = najdrozsza_kategoria(kategorie)
+
+        print(f"Suma: {suma:.2f} zł")
+        print(f"Średnia: {srednia:.2f} zł")
+        print(f"Największy wydatek: {max_wydatek[0]:.2f} zł - {max_wydatek[1]}")
+        print("Wydatki wg kategorii:")
+        for kategoria, suma in kategorie.items():
+            print(f"- {kategoria}: {suma:.2f} zł")
+
+        print(f"Najdroższa kategoria: {najdrozsza_kat[0]} ({najdrozsza_kat[1]:.2f} zł)")
+
+    
+    elif wybor == '6':
+        # zapisz raport do txt
+        suma = suma_wydatkow(lista_wydatkow)
+        srednia = srednia_wydatkow(lista_wydatkow)
+        max_wyd = max_wydatek(lista_wydatkow)
+        kategorie = lista_kategorii(lista_wydatkow)
+        najdrozsza_kat = najdrozsza_kategoria(kategorie)
+
+        print(f"Suma: {suma:.2f} zł")
+        print(f"Średnia: {srednia:.2f} zł")
+        print(f"Największy wydatek: {max_wyd[0]:.2f} zł - {max_wyd[1]}")
+        print("Wydatki wg kategorii:")
+        for kategoria, suma in kategorie.items():
+            print(f"- {kategoria}: {suma:.2f} zł")
+
+        print(f"Najdroższa kategoria: {najdrozsza_kat[0]} ({najdrozsza_kat[1]:.2f} zł)")
+        save_to_txt(suma, srednia, max_wyd, kategorie, najdrozsza_kat)
+        
+    
+    elif wybor == '7':
+        # zapisz wydatki do csv
+        suma = suma_wydatkow(lista_wydatkow)
+        srednia = srednia_wydatkow(lista_wydatkow)
+        max_wyd = max_wydatek(lista_wydatkow)
+        kategorie = lista_kategorii(lista_wydatkow)
+        najdrozsza_kat = najdrozsza_kategoria(lista_wydatkow)
+
+        print(f"Suma: {suma:.2f} zł")
+        print(f"Średnia: {srednia:.2f} zł")
+        print(f"Największy wydatek: {max_wydat[0]:.2f} zł - {max_wydat[1]}")
+        print("Wydatki wg kategorii:")
+        for kategoria, suma in kategorie.items():
+            print(f"- {kategoria}: {suma:.2f} zł")
+
+        print(f"Najdroższa kategoria: {najdrozsza_kat[0]} ({najdrozsza_kat[1]:.2f} zł)")
+        save_to_csv(lista_wydatkow)
+    
+    elif wybor == '0':  # Wyjście – kończymy pętlę
+        print("Kończę program.")
+        break
+
+    else:
+        print("Nie ma takiej opcji, spróbuj ponownie.")
+    
+
 if len(lista_wydatkow) == 0:
     print("Nie wczytano żadnych wydatków - plik jest pusty lub go nie ma.")
     exit()
