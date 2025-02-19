@@ -591,7 +591,7 @@ def wczytaj_plik_wydatkow():
             for row in reader:
                 kwota = float(row[0])
                 kategoria = row[1]
-                wydatki.append(kwota, kategoria)
+                wydatki.append((kwota, kategoria))
     except FileNotFoundError as error:
         print(f"Błąd odczytu pliku: {error}")
     except ValueError as error:
