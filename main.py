@@ -566,28 +566,27 @@ while True:
         usun_wydatek(lista_wydatkow)
     
     elif wybor == '5':
-        # pokaż raport (oblicz sumę, średnią, max)
         suma = suma_wydatkow(lista_wydatkow)
         srednia = srednia_wydatkow(lista_wydatkow)
-        max_wyd = max_wydatek(lista_wydatkow)
+        max_wyd = max_wydatek_kat(lista_wydatkow)  # <- ważne: max_wydatek_KAT !
         kategorie = lista_kategorii(lista_wydatkow)
         najdrozsza_kat = najdrozsza_kategoria(kategorie)
 
         print(f"Suma: {suma:.2f} zł")
         print(f"Średnia: {srednia:.2f} zł")
-        print(f"Największy wydatek: {max_wydatek[0]:.2f} zł - {max_wydatek[1]}")
+        print(f"Największy wydatek: {max_wyd[0]:.2f} zł - {max_wyd[1]}")
         print("Wydatki wg kategorii:")
         for kategoria, suma in kategorie.items():
             print(f"- {kategoria}: {suma:.2f} zł")
 
         print(f"Najdroższa kategoria: {najdrozsza_kat[0]} ({najdrozsza_kat[1]:.2f} zł)")
 
+
     
     elif wybor == '6':
-        # zapisz raport do txt
         suma = suma_wydatkow(lista_wydatkow)
         srednia = srednia_wydatkow(lista_wydatkow)
-        max_wyd = max_wydatek(lista_wydatkow)
+        max_wyd = max_wydatek_kat(lista_wydatkow)  # <- to samo tutaj!
         kategorie = lista_kategorii(lista_wydatkow)
         najdrozsza_kat = najdrozsza_kategoria(kategorie)
 
